@@ -26,21 +26,32 @@ function App() {
   
 }
 
+
 class Codelab extends React.Component{
   render(){
-    let text = "Hi I am codelab"
-    let style = {
-      backgroundColor:'pink'
-    }
    return(
-    <div style={style}>{text}</div>
+     <div>
+       <h1>Hello {this.props.name}</h1>
+       <h2>{this.props.number}</h2>
+       <div>{this.props.children}</div>
+     </div>
    );
   }
 }
-class test extends React.Component{
+
+Codelab.propTypes = {
+  name:React.PropTypes.string,
+  number:React.PropTypes.number.isRequired
+};
+
+Codelab.defaultProps = {
+  name:'UnKnown'
+};
+
+class App extends React.Component{
   render(){
     return(
-      <Codelab/>
+      <Codelab name={this.props.name} number = {this.props.number}>{this.props.children}</Codelab>
     ); 
   }
 }
@@ -48,6 +59,8 @@ class test extends React.Component{
 
 
 
+
+
 export default App;
 
-ReactDOM.render(<test/>,document.getElementById('root'));
+ReactDOM.render(<App number={5}>asd</App>,document.getElementById('root'));
