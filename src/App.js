@@ -27,34 +27,42 @@ function App() {
 }
 
 
-class Codelab extends React.Component{
+class Count extends React.Component {
+  constructor(props){
+      super(props);
+      this.state = {
+        value : 0
+      };
+      this.handleClick = this.handleClick.bind(this);
+    }
+  
+  handleClick(){
+    this.setState({
+      value : this.state.value+1
+    });
+  }
+  
   render(){
-   return(
-     <div>
-       <h1>Hello {this.props.name}</h1>
-       <h2>{this.props.number}</h2>
-       <div>{this.props.children}</div>
-     </div>
-   );
+    return (
+      <div>
+        <h2>{this.state.value}</h2>
+        <button onClick = {this.handleClick}>Press Me</button>
+      </div>
+    )
   }
 }
-
-Codelab.propTypes = {
-  name:React.PropTypes.string,
-  number:React.PropTypes.number.isRequired
-};
-
-Codelab.defaultProps = {
-  name:'UnKnown'
-};
-
-class App extends React.Component{
-  render(){
-    return(
-      <Codelab name={this.props.name} number = {this.props.number}>{this.props.children}</Codelab>
-    ); 
+class App extends React.Component {
+  render() {
+    return (
+      <Count/>
+    );
   }
-}
+};
+
+ReactDOM.render(
+  <App></App>,
+  document.getElementById("root")
+);
 
 
 
@@ -62,5 +70,3 @@ class App extends React.Component{
 
 
 export default App;
-
-ReactDOM.render(<App number={5}>asd</App>,document.getElementById('root'));
