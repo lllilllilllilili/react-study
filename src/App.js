@@ -26,47 +26,57 @@ function App() {
   
 }
 
-
-class Count extends React.Component {
+class Contact extends React.Component{
   constructor(props){
-      super(props);
-      this.state = {
-        value : 0
-      };
-      this.handleClick = this.handleClick.bind(this);
-    }
-  
-  handleClick(){
-    this.setState({
-      value : this.state.value+1
-    });
-  }
-  
-  render(){
-    return (
-      <div>
-        <h2>{this.state.value}</h2>
-        <button onClick = {this.handleClick}>Press Me</button>
-      </div>
-    )
-  }
+     super(props);
+     this.state ={
+       contactData : [
+         {name:'Abet',phone:'010-0000-0001'},
+         {name:'Abet2',phone:'010-0000-0001'},
+         {name:'Abe3t',phone:'010-0000-0001'},
+         {name:'Ab4et',phone:'010-0000-0001'}
+       ]
+     }
+   }
+
+ render(){
+   const mapToComponent = (data) =>{
+     return data.map((contact,i)=>{
+       return (<ContactInfo contact={contact} key ={i}/>)
+     });
+   };
+   return(
+     <div>
+      {mapToComponent(this.state.contactData)}
+     </div>
+   )
+ }
 }
+
+class ContactInfo extends React.Component{
+ render(){
+   return(
+     <div>{this.props.contact.name}
+       {this.props.contact.phone}
+     </div>
+   )
+ }
+}
+
+
 class App extends React.Component {
-  render() {
-    return (
-      <Count/>
-    );
-  }
+ render() {
+   return (
+     <Contact/>
+   );
+ }
 };
 
 ReactDOM.render(
-  <App></App>,
-  document.getElementById("root")
+ <App></App>,
+ document.getElementById("root")
 );
 
 
-
-
-
-
 export default App;
+
