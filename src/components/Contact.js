@@ -56,6 +56,11 @@ export default class Contact extends React.Component {
     }//아이템 하나 전달하는것도 배열 형태로 해야한다.
 
     handleRemove(){
+      //아무것도 선택 안하면 삭제가 안일어난다.
+      if(this.state.selectedKey < 0){
+        return ;
+      }
+
       this.setState({
           contactData: update(this.state.contactData,
             {$splice:[[this.state.selectedKey,1]]}
@@ -110,6 +115,8 @@ export default class Contact extends React.Component {
                 <ContactDetails
                 isSelected={this.state.selectedKey != -1}
                 contact = {this.state.contactData[this.state.selectedKey]}
+                onRemove = {this.handleRemove}
+                onEdit = {this.handleEdit}
                 />
                 <ContactCreate
                   onCreate={this.handleCreate}
