@@ -13,6 +13,8 @@ export default class ContactDetails extends React.Component{
     this.handleToggle = this.handleToggle.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleEdit = this.handleEdit.bind(this);
+    this.handleKeyPress = this.handleKeyPress.bind(this);
+
   }
   handleToggle(){
     //Edit : false
@@ -34,6 +36,12 @@ export default class ContactDetails extends React.Component{
     });
   }
 
+  handleKeyPress(e){
+    if(e.charCode === 13){
+      this.handleToggle();
+    }
+  }
+
   handleChange(e){
     let nextState = {};
     nextState[e.target.name] = e.target.value;
@@ -41,14 +49,20 @@ export default class ContactDetails extends React.Component{
   }
 
   handleEdit(){
-    this.props.onEdit(this.state.name, this.state.phonee);
+    this.props.onEdit(this.state.name, this.state.phone);
 
   }
   render(){
-    const details = (<div>
-      <p>{this.props.contact.name}</p>
-      <p>{this.props.contact.phone}</p>
-      </div>);
+    const details = (
+      <div>
+      <p>
+        {this.props.contact.name}
+      </p>
+      <p>
+        {this.props.contact.phone}
+      </p>
+      </div>
+    );
 
     //JSX 라서 edit 안에 <div> 빠지면 에러 난다.
     const edit = (
@@ -58,12 +72,14 @@ export default class ContactDetails extends React.Component{
                placeholder ="name"
                value ={this.state.name}
                onChange = {this.handleChange}
+               onKeyPress = {this.handleKeyPress}
                /></p>
         <p><input type ="text"
                name ="phone"
                placeholder ="phone"
                value ={this.state.phone}
                onChange = {this.handleChange}
+                onKeyPress = {this.handleKeyPress}
                /></p>
       </div>
     )
